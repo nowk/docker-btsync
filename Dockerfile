@@ -19,6 +19,12 @@ ENTRYPOINT [ "./btsync" ]
 CMD [ "--nodaemon", "--webui.listen", "0.0.0.0:8888" ]
 
 EXPOSE 8888 61134
+
+# /sync is the volumne that contains all my syncable directories. It does not
+# sync this directory directly.
 VOLUME /sync
+
+# /opt/btsync/.sync is btsync data directory that holds all the conifgurations
+# for syncs.
 VOLUME /opt/btsync/.sync
 
