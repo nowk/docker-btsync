@@ -15,8 +15,9 @@ RUN mkdir -p /sync /opt/btsync/.sync && cd /opt \
 
 USER btsy
 WORKDIR /opt/btsync
-ENTRYPOINT [ "./btsync" ]
-CMD [ "--nodaemon", "--webui.listen", "0.0.0.0:8888" ]
+# dump all log output, long running btsync sessions begin to eat away at disk
+# space
+CMD ./btsync --nodaemon --webui.listen 0.0.0.0:8888 >/dev/null 2>&1
 
 EXPOSE 8888 61134
 
