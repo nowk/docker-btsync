@@ -1,8 +1,8 @@
 FROM debian:jessie
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
 
-RUN apt-get update
-RUN apt-get -y install wget
+RUN apt-get update \
+	&& apt-get -y install wget
 
 # uid 1001 is my local user's uid
 RUN adduser --disabled-password --uid 1001 --gecos '' btsy
