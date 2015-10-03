@@ -13,6 +13,10 @@ RUN mkdir -p /sync /opt/btsync/.sync && cd /opt \
 	&& rm BitTorrent-Sync_x64.tar.gz \
 	&& chown -R btsy:btsy /sync /opt/btsync
 
+# clean up
+RUN apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 USER btsy
 WORKDIR /opt/btsync
 # dump all log output, long running btsync sessions begin to eat away at disk
