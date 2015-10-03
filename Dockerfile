@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM phusion/baseimage:0.9.17
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
 
 RUN apt-get update \
