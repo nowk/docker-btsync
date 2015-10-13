@@ -1,21 +1,15 @@
 FROM phusion/baseimage:0.9.17
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
 
-RUN apt-get update \
-	&& apt-get -y install wget
-
 # uid 1001 is my local user's uid
 RUN adduser --disabled-password --uid 1001 --gecos '' btsy
 
 RUN mkdir -p /sync /opt/btsync/.sync && cd /opt \
-	&& wget https://download-cdn.getsync.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz \
+	&& curl -O https://download-cdn.getsync.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz \
 	&& tar xzvf BitTorrent-Sync_x64.tar.gz -C ./btsync \
 	&& rm BitTorrent-Sync_x64.tar.gz \
 	&& chown -R btsy:btsy /sync /opt/btsync
 
-# clean up
-RUN apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER btsy
 WORKDIR /opt/btsync
