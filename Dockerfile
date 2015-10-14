@@ -12,11 +12,17 @@ RUN mkdir -p /sync /opt/btsync/.sync && cd /opt \
 	&& chown -R btsy:btsy /sync /opt/btsync
 
 
+# simple loop file to allow btsync to run as daemon and keep docker alive. This
+# removes the need to pipe the --nodeamon output to null (which continues to
+# grown the volume size otherwise)
+COPY ./loop /usr/local/bin/
+
+COPY ./docker-entrypoint  /
+ENTRYPOINT [ "/docker-entrypoint" ]
+CMD [ "/bin/sh", "-c", "./btsync --webui.listen 0.0.0.0:8888 ; loop" ]
+
 USER btsy
 WORKDIR /opt/btsync
-# dump all log output, long running btsync sessions begin to eat away at disk
-# space
-CMD ./btsync --nodaemon --webui.listen 0.0.0.0:8888 >/dev/null 2>&1
 
 # /sync is the volumne that contains all my syncable directories. It does not
 # sync this directory directly.
