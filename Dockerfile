@@ -1,5 +1,11 @@
-FROM phusion/baseimage:0.9.17
+FROM debian:jessie
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
+
+# install dependencies
+RUN apt-get update && apt-get install -y \
+	curl \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # uid 1001 is my local user's uid
 RUN adduser --disabled-password --uid 1001 --gecos '' btsy
