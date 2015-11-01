@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# uid 1001 is my local user's uid
-RUN adduser --disabled-password --uid 1001 --gecos '' btsy
+# uid 1000 is my local user's uid
+RUN adduser --disabled-password --uid 1000 --gecos '' btsy
 
 # install btsync
 RUN mkdir -p /sync /opt/btsync/.sync && cd /opt \
