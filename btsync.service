@@ -1,0 +1,11 @@
+[Unit]
+Description=Btsync Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+ExecStart=/usr/bin/make --makefile=/home/nowk/devs/ops/Makefile btsync
+ExecStop=/usr/bin/docker stop btsync
+
+[Install]
+WantedBy=multi-user.target
