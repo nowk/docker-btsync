@@ -1,0 +1,17 @@
+version: "2.0"
+services:
+  btsync:
+    build: .
+    volumes:
+      - /home/nowk/devs:/sync
+      - /var/lib/btsync/.sync:/opt/btsync/.sync
+    working_dir: /opt/btsync
+    expose:
+      - 8888
+      - 61134
+    user: btsync
+    entrypoint: /opt/btsync/rslsync
+    command: --webui.listen 0.0.0.0:8888 --nodaemon
+    ports:
+      - "8888:8888"
+      - "61134:61134"
