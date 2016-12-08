@@ -4,10 +4,14 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-ExecStartPre=-/usr/bin/docker kill btsync
-ExecStartPre=-/usr/bin/docker rm -v btsync
-ExecStart=/usr/bin/docker run -v /home/nowk/devs:/sync -v /var/lib/btsync/.sync:/opt/btsync/.sync -m 128M -p 8888:8888 -p 61134:61134 --name btsync btsync --webui.listen 0.0.0.0:8888 --nodaemon
-ExecStop=/usr/bin/docker stop btsync
+WorkingDirectory=/home/nowk/devs/ops/docker-btsync
+
+ExecStartPre=-/usr/local/bin/docker-compose kill
+ExecStartPre=-/usr/local/bin/docker-compose rm -v -f btsync
+ExecStart=/usr/local/bin/docker-compose up btsync
+ExecStop=/usr/local/bin/docker-compose stop -t 1
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
